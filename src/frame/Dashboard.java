@@ -12,7 +12,7 @@ public class Dashboard extends JFrame implements ActionListener{
 	
 	JMenuBar bar;
 	JMenu item,bill;
-	JMenuItem new_item,update_item,del_item,new_bill,recover_bill,logout,exit;
+	JMenuItem new_item,update_item,new_bill,recover_bill,logout,exit;
 	
 	public Dashboard(String title) {
 		super(title);
@@ -25,8 +25,6 @@ public class Dashboard extends JFrame implements ActionListener{
 		new_item.addActionListener(this);
 		update_item= new JMenuItem("Update Item");
 		update_item.addActionListener(this);
-		del_item = new JMenuItem("Delete Item");
-		del_item.addActionListener(this);
 		new_bill= new JMenuItem("New bill");
 		new_bill.addActionListener(this);
 		recover_bill= new JMenuItem("Recover bill");
@@ -36,7 +34,6 @@ public class Dashboard extends JFrame implements ActionListener{
 		
 		item.add(new_item);
 		item.add(update_item);
-		item.add(del_item);
 		item.addSeparator();
 		item.add(logout);
 		item.add(exit);
@@ -65,11 +62,6 @@ public class Dashboard extends JFrame implements ActionListener{
 		{
 			/*dispose();*/
 		    new UpdateItem("Update Items");
-		}
-		else if(cmd.equals("Delete Item"))
-		{
-			/*dispose();*/
-		    new DeleteItem("Delete Item");
 		}
 		else if(cmd.equals("New bill"))
 		{

@@ -2,14 +2,7 @@ package bean;
 
 public class Item {
 
-	String name,sel_name;
-	
-	public String getSel_name() {
-		return sel_name;
-	}
-	public void setSel_name(String sel_name) {
-		this.sel_name = sel_name;
-	}
+	String name;
 	float price,qty;
 	public String getName() {
 		return name;
