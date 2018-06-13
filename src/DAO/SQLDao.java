@@ -48,6 +48,34 @@ public class SQLDao extends DAOFactory{
 		}
 		return flag;
 	}
+	@Override
+	public boolean UpdateProduct(Item item) {
+		try {
+			con = DbConnection.getConnection();
+			st = con.createStatement();
+			query = "Update "+Constant.DB_Item_TABLE+" set name='"+item.getName()+"',price='"+item.getPrice()+"',quantity='"+item.getQty()+"'  where name='"+item.getSel_name()+"' ";
+			rs = st.executeUpdate(query);
+			if(rs>0)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	@Override
+	public boolean DeleteProduct(Item item) {
+		try {
+			con = DbConnection.getConnection();
+			st = con.createStatement();
+			query = "DELETE FROM "+Constant.DB_Item_TABLE+" WHERE name='"+item.getSel_name()+"'";
+			rs = st.executeUpdate(query);
+			if(rs>0)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 	
 
 	
