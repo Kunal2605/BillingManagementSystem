@@ -7,4 +7,5 @@ public class Constant {
 	public static String DB_USER_NAME = "root";
 	public static String DB_USER_PASSWORD = "Kunnu*07";
 	public static String DB_USER_TABLE = "user";
+	public static String DB_Item_TABLE = "items";
 }

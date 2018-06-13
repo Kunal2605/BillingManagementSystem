@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import DAO.DAOFactory;
+import bean.User;
 import constant.Constant;
 
 public class LoginFrame extends JFrame implements ActionListener{
@@ -76,33 +78,19 @@ public class LoginFrame extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Don't leave blank");
 			}else{
 				
-				try {
-					Class.forName("com.mysql.jdbc.Driver");
-					Connection con = DriverManager.getConnection(Constant.DB_HOST + Constant.DB_NAME,Constant.DB_USER_NAME,Constant.DB_USER_PASSWORD);
-					String query = "SELECT * FROM "+Constant.DB_USER_TABLE+" WHERE `email_id`=? AND PASSWORD=?";
-					PreparedStatement statement = con.prepareStatement(query);
-					statement.setString(1, email);
-					statement.setString(2, pass);
-					
-					ResultSet set = statement.executeQuery();
-					if (set.next()) {
-						dispose();
-						new Dashboard("Dashboard");
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Incorrect email or pass");
-					}
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				/*if(email.equals(pass)){
+				User user = new User();
+				user.setEmail(email);
+				user.setPassword(pass);
+				DAOFactory dao = DAOFactory.getDAo();
+				boolean flag = dao.LoginUser(user );
+				if(flag)
+				{
 					dispose();
-					new Dashboard("Dashboard");
+				    new Dashboard("Dashboard");
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Incorrect email or pass");
-				}*/ 
+				} 
 			}
 		}
 		else{

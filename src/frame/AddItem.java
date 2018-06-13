@@ -1,22 +1,25 @@
 package frame;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-public class AddItem extends JFrame{
+import DAO.DAOFactory;
+import bean.Item;
+
+public class AddItem extends JFrame implements ActionListener{
 	
-	String qty_list[]={"1","2","3","4","5","6","7","8","9","10"};
 	JLabel l_add,l_name,l_price,l_qty;
-	JSpinner  t_price;
-	JComboBox<String> t_qty;
+	JSpinner  t_price,t_qty;
 	JTextField t_name;
 	JButton add,cancel;
 	
@@ -32,7 +35,7 @@ public class AddItem extends JFrame{
 		l_name.setBounds(140, 60, 100, 25);
 		add(l_name);
 		
-		l_price = new JLabel("Item Price");
+		l_price = new JLabel("Item Price(Rs.)");
 		l_price.setBounds(140, 95, 100, 25);
 		add(l_price);
 		
@@ -48,7 +51,7 @@ public class AddItem extends JFrame{
 		t_price.setBounds(230, 95, 180, 25);
 		add(t_price);
 		
-		t_qty = new JComboBox<String>(qty_list);
+		t_qty = new JSpinner();
 		t_qty.setBounds(230, 130, 180, 25);
 		add(t_qty);
 		
@@ -60,9 +63,51 @@ public class AddItem extends JFrame{
 		cancel.setBounds(325, 170, 100, 25);
 		add(cancel);
 		
+		add.addActionListener(this);
+		cancel.addActionListener(this);
+		
 		setLocation(350,225);
 		setSize(600,450);
 		setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		String cmd = e.getActionCommand();
+		if(cmd.equals("Add"))
+		{
+			String name;
+			int price,qty;
+			name = t_name.getText();
+			price = (int) t_price.getValue();
+			qty = (int) t_qty.getValue();
+			if(name.trim().length()<=0 || price<=0 || qty<=0){
+				JOptionPane.showMessageDialog(null, "Name can't be blank or price and quantity can't be less than or equal to zero");
+			}else{
+				Item item = new Item();
+				item.setName(name);
+				item.setPrice(price);
+				item.setQty(qty);
+				DAOFactory dao = DAOFactory.getDAo();
+				boolean flag = dao.InsertProduct(item);
+				if(flag)
+				{
+					JOptionPane.showMessageDialog(null, "New item added");
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Error 404");
+				} 
+			}
+			
+			
+		}
+		else{
+			t_name.setText("");
+			t_price.setValue(0);;
+			t_qty.setValue(0);
+			
+		}
 	}
 
 	public static void main(String[] args) {

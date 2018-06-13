@@ -1,11 +1,14 @@
 package frame;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class Dashboard extends JFrame{
+public class Dashboard extends JFrame implements ActionListener{
 	
 	JMenuBar bar;
 	JMenu item,bill;
@@ -19,8 +22,11 @@ public class Dashboard extends JFrame{
 		item= new JMenu("Item");
 		bill= new JMenu("Bill");
 		new_item= new JMenuItem("New Item");
+		new_item.addActionListener(this);
 		update_item= new JMenuItem("Update Item");
+		update_item.addActionListener(this);
 		new_bill= new JMenuItem("New bill");
+		new_bill.addActionListener(this);
 		recover_bill= new JMenuItem("Recover bill");
 		
 		logout= new JMenuItem("Logout");
@@ -43,6 +49,28 @@ public class Dashboard extends JFrame{
 		setVisible(true);
 		setSize(900,700);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String cmd = e.getActionCommand();
+		if(cmd.equals("New Item"))
+		{
+			/*dispose();*/
+		    new AddItem("Add Items");
+		}
+		else if(cmd.equals("Update Item"))
+		{
+			/*dispose();*/
+		    new UpdateItem("Update Items");
+		}
+		else if(cmd.equals("New bill"))
+		{
+			/*dispose();*/
+		    new BillGenerator("New Bill");
+		}
+	}
+	
+	
 
 	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
