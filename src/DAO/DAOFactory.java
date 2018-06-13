@@ -12,5 +12,10 @@ public abstract class DAOFactory {
 	}
 	public abstract boolean LoginUser(User user);
 	
+    public abstract boolean UpdateProduct(Item item);
+	
+	public abstract boolean DeleteProduct(Item item);
 	public abstract boolean InsertProduct(Item item);
+	
+	
 }
