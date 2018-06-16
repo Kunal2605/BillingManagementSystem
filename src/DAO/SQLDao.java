@@ -1,6 +1,10 @@
 package DAO;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.xml.crypto.Data;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 
@@ -15,6 +19,7 @@ public class SQLDao extends DAOFactory{
 	Statement st;
 	String query;
 	ResultSet res;
+	ArrayList<String> data = new ArrayList<String>();
 	int rs;
 	@Override
 	public boolean LoginUser(User user) {
@@ -76,6 +81,24 @@ public class SQLDao extends DAOFactory{
 		}
 		return flag;
 	}
+	@Override
+	public ArrayList<String> ShowItems() {
+		try {
+			con = DbConnection.getConnection();
+			st = con.createStatement();
+			String query = "SELECT name FROM "+Constant.DB_Item_TABLE+"";
+			res = st.executeQuery(query);
+			while(res.next())
+			{
+				data.add(res.getString("name"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+		
+	}
+	
 
 	
 }

@@ -4,6 +4,7 @@ package frame;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,7 +17,7 @@ import bean.Item;
 
 public class DeleteItem extends JFrame implements ActionListener{
 	
-	String names[]={"name1","name2","name3","name4","name5"};
+	ArrayList<String> data = new ArrayList<String>();
 	JLabel sel_item;
 	JComboBox<String> sel_name;
 	JButton del_btn,cancel;
@@ -31,10 +32,16 @@ public class DeleteItem extends JFrame implements ActionListener{
 			sel_item.setBounds(140, 60, 100, 25);
 			add(sel_item);
 			
-			sel_name = new JComboBox<String>(names);
+			sel_name = new JComboBox<String>();
 			sel_name.setBounds(230, 100, 180, 25);
 			sel_name.setBounds(230, 60, 180, 25);
 			add(sel_name);
+			DAOFactory dao = DAOFactory.getDAo();
+			data = dao.ShowItems();
+			for(int i =0;i<data.size();i++)
+			{
+				sel_name.insertItemAt(data.get(i), i);
+			}
 			
 			del_btn = new JButton("Delete");
 			del_btn.setBounds(175, 170, 100, 25);
@@ -71,6 +78,7 @@ public class DeleteItem extends JFrame implements ActionListener{
 				if(flag)
 				{
 					JOptionPane.showMessageDialog(null, "Item Deleted");
+					dispose();
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Error 404");
@@ -84,6 +92,10 @@ public class DeleteItem extends JFrame implements ActionListener{
 		}
 
 		
+	}
+	public static void main(String[] args) {
+		DeleteItem add = new DeleteItem("Add Items");
+
 	}
 
 }

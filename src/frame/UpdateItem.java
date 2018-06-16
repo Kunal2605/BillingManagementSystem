@@ -20,7 +20,7 @@ import bean.Item;
 
 public class UpdateItem extends JFrame implements ActionListener{
 
-	ArrayList<String> ql = new ArrayList<String>();
+	ArrayList<String> data = new ArrayList<String>();
 	String qty_list[]={"1","2","3","4","5","6","7","8","9","10"};
 	String names[]={"name1","name2","name3","name4","name5"};
 	JLabel l_update,l_name,l_price,l_qty,l_sel_name;
@@ -56,9 +56,16 @@ public class UpdateItem extends JFrame implements ActionListener{
 		l_qty.setBounds(140, 185, 100, 25);
 		add(l_qty);
 		
-		sel_name = new JComboBox<String>(names);
+		sel_name = new JComboBox<String>();
 		sel_name.setBounds(230, 80, 180, 25);
 		add(sel_name);
+		DAOFactory dao = DAOFactory.getDAo();
+		data = dao.ShowItems();
+		for(int i =0;i<data.size();i++)
+		{
+			sel_name.insertItemAt(data.get(i), i);
+		}
+		
 		
 		t_name = new JTextField();
 		t_name.setBounds(230, 115, 180, 25);
@@ -113,6 +120,11 @@ public class UpdateItem extends JFrame implements ActionListener{
 				if(flag)
 				{
 					JOptionPane.showMessageDialog(null, "Item Updated");
+					t_name.setText("");
+					t_price.setValue(0);;
+					t_qty.setValue(0);
+					sel_name.removeAllItems();
+					dispose();
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Error 404");
@@ -128,6 +140,10 @@ public class UpdateItem extends JFrame implements ActionListener{
 			
 		}
 		
+	}
+	public static void main(String[] args) {
+		UpdateItem add = new UpdateItem("Add Items");
+
 	}
 
 }

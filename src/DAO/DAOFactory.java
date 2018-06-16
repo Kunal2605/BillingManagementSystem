@@ -1,5 +1,7 @@
 package DAO;
 
+import java.util.ArrayList;
+
 import bean.Item;
 import bean.User;
 
@@ -17,5 +19,6 @@ public abstract class DAOFactory {
 	public abstract boolean DeleteProduct(Item item);
 	public abstract boolean InsertProduct(Item item);
 	
+	public abstract ArrayList<String> ShowItems();
 	
 }

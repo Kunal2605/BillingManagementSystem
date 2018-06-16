@@ -56,11 +56,11 @@ public class AddItem extends JFrame implements ActionListener{
 		add(t_qty);
 		
 		add = new JButton("Add");
-		add.setBounds(175, 170, 100, 25);
+		add.setBounds(155, 200, 100, 25);
 		add(add);
 		
 		cancel = new JButton("Cancel");
-		cancel.setBounds(325, 170, 100, 25);
+		cancel.setBounds(325, 200, 100, 25);
 		add(cancel);
 		
 		add.addActionListener(this);
@@ -94,6 +94,9 @@ public class AddItem extends JFrame implements ActionListener{
 				if(flag)
 				{
 					JOptionPane.showMessageDialog(null, "New item added");
+					t_name.setText("");
+					t_price.setValue(0);;
+					t_qty.setValue(0);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Error 404");
